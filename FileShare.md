@@ -3,8 +3,12 @@
 
 First, we go to Storage>Filesystems. Here add an EXT4 Filesystem, and select the relavant disk (in my case sdb/sdc/sdd) and click save. 
 This will take some time to set up the drive. 
+Right after this, you will be taken to the mounting the filesystem page. If you accidentally miss this, mount the filesystem manually to OMV Storage>Filesystems>Mount (triangle button).
 
-Now
+Now that we have the filesystem mounted, we can now creat a shared folder in Storage>Shared Folder. In my case, I created a shared folder called `\photos`.
+
+Now we share the folder in reality by using SMB.
+In Services>SMB/CIFS , enable the service with relavant options, follwed by sharing the newly created shared folder. 
 
 
 # Proxmox SMB Mount
