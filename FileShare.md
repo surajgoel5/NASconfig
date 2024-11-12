@@ -10,8 +10,31 @@ Now that we have the filesystem mounted, we can now creat a shared folder in Sto
 Now we share the folder in reality by using SMB.
 In Services>SMB/CIFS , enable the service with relavant options, follwed by sharing the newly created shared folder. 
 
+# Proxmox SMB Mount FOR LXC CONTAINER
 
-# Proxmox SMB Mount
+To mount this SMB share in proxmox, we run the following command
+
+```
+sudo mount -t cifs -o username=OMV_USERNAME,uid=100000,gid=100000 //OMV_IP/SHARED_FOLDER_NAME /mnt/pve/PROXMOX_MOUNTED_FOLDER_NAME/
+```
+
+Here, `OMV_USERNAME` is the username of the user we are trying to access OMV through. Make sure you have made this user in OMV.
+`OMV_IP` is the ip address of the OMV server, and `SHARED_FOLDER_NAME` is the corresponding hsared folder name.
+'PROXMOX_MOUNTED_FOLDER_NAME' is the name you choose to call the mounted folder. 
+
+We have chosen `uid` and `gid` carefully as they correspond to the root user of an LXC Container. Therefore, we can actually edit the files from within the LXC.
+To make shis shared folder available in CTs of proxmox, run the following in proxmox shell 
+```
+pct set CTID -mp0 /mnt/pve/PROXMOX_MOUNTED_FOLDER_NAME,mp=/MOUNTING/PATH/IN/CT
+```
+where `CTID` is the container ID, `104` in my case. 
+
+
+
+
+
+# The following method did not work.
+#### Proxmox SMB Mount
 
 Now we need to mound these SMB Shares on proxmox. 
 This can be easily done using GUI-
@@ -30,7 +53,7 @@ After this goes through, the smb share should be mounted in /mnt/pve in proxmox.
 similar commands to mount SMB shares are available for any linux VM from cmdline
 
 
-# Transfer SMB Share to CTs in Proxmox
+#### Transfer SMB Share to CTs in Proxmox
 Since CTs in proxmox are usually unprivledged, the user ids start from 100000, instead of 0. 
 This means even when you mount smb shares within an unprivledged CT, you cannot access it since only root can properly access it. 
 
