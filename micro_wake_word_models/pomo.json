@@ -3,7 +3,7 @@
   "wake_word": "Pomo",
   "author": "Suraj Goel",
   "website": "https://www.surajgoel.com/",
-  "model": "./pomo.tflite",
+  "model": "./pomo_trained_1.tflite",
   "version": 1,
   "micro": {
     "probability_cutoff": 0.5,
