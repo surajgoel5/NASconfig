@@ -23,7 +23,24 @@ Here, `OMV_USERNAME` is the username of the user we are trying to access OMV thr
 'PROXMOX_MOUNTED_FOLDER_NAME' is the name you choose to call the mounted folder. 
 
 We have chosen `uid` and `gid` carefully as they correspond to the root user of an LXC Container. Therefore, we can actually edit the files from within the LXC.
-To make shis shared folder available in CTs of proxmox, run the following in proxmox shell 
+
+
+For this to work after every reboot, I added the lines in `/etc/ftsab`
+
+```
+//OMV_IP/SHARED_FOLDER_NAME /mnt/pve/PROXMOX_MOUNTED_FOLDER_NAME cifs credentials=/PATH/TO/CREDENTIALS,iocharset=utf8,file_mode=0775,dir_mode=0775,uid=100000,gid=100000,_netdev 0 0
+```
+ My omv creds file looks like this-
+ 
+```
+username=XXXXXX
+password=XXXXXXXXXXxxx
+```
+
+
+
+To make shis shared folder available in CTs of proxmox, run the following in proxmox shell. This will stay the same way when you reboot.
+
 ```
 pct set CTID -mp0 /mnt/pve/PROXMOX_MOUNTED_FOLDER_NAME,mp=/MOUNTING/PATH/IN/CT
 ```
