@@ -30,6 +30,8 @@ For this to work after every reboot, I added the lines in `/etc/ftsab`
 ```
 //OMV_IP/SHARED_FOLDER_NAME /mnt/pve/PROXMOX_MOUNTED_FOLDER_NAME cifs credentials=/PATH/TO/CREDENTIALS,iocharset=utf8,file_mode=0775,dir_mode=0775,uid=100000,gid=100000,_netdev 0 0
 ```
+Run `systemctl daemon-reload` to reload the fstab, and `mount -a` to mount all dirs in fstab. Or simply reboot :).
+
  My omv creds file looks like this-
  
 ```
